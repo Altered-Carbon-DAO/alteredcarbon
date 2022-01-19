@@ -86,11 +86,11 @@ import (
 	"github.com/tendermint/spm/cosmoscmd"
 	"github.com/tendermint/spm/openapiconsole"
 
-	"github.com/pariah140/alteredcarbon/docs"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/docs"
 
-	alteredcarbonmodule "github.com/pariah140/alteredcarbon/x/alteredcarbon"
-	alteredcarbonmodulekeeper "github.com/pariah140/alteredcarbon/x/alteredcarbon/keeper"
-	alteredcarbonmoduletypes "github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
+	alteredcarbonmodule "github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon"
+	alteredcarbonmodulekeeper "github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/keeper"
+	alteredcarbonmoduletypes "github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 

@@ -3,6 +3,7 @@ package alteredcarbon
 import (
 	"encoding/json"
 	"fmt"
+
 	// this line is used by starport scaffolding # 1
 
 	"github.com/gorilla/mux"
@@ -11,14 +12,14 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/client/cli"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/client/cli"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
 )
 
 var (

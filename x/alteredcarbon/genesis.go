@@ -1,9 +1,9 @@
 package alteredcarbon
 
 import (
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

@@ -5,9 +5,9 @@ import (
 
 	"github.com/tendermint/tendermint/libs/log"
 
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
 )
 
 type (

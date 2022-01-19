@@ -1,11 +1,11 @@
 syntax = "proto3";
-package pariah140.alteredcarbon.alteredcarbon;
+package Altered-Carbon-DAO.alteredcarbon.alteredcarbon;
 
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
 
-option go_package = "github.com/pariah140/alteredcarbon/x/alteredcarbon/types";
+option go_package = "github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types";
 
 // Query defines the gRPC querier service.
 service Query {

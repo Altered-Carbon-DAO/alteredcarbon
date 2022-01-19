@@ -1,31 +1,32 @@
 accounts:
   - name: acMain
-    coins: ["2499000000alteredCarbon"]
+    coins: ["2499000000uacarb"]
   - name: acValidator1
-    coins: ["1000000alteredCarbon"]
+    coins: ["1000000uacarb"]
 validator:
   name: acValidator1
-  staked: "1000000alteredCarbon"
+  staked: "1000000uacarb"
 client:
   openapi:
     path: "docs/static/openapi.yml"
   vuex:
     path: "vue/src/store"
 genesis:
+  chain_id: "alteredcarbon-mainnet-1"
   app_state:
     staking:
       params:
-        bond_denom: "alteredCarbon"
+        bond_denom: "uacarb"
     crisis:
       constant_fee:
-        denom: "alteredCarbon"
+        denom: "uacarb"
     gov:
       deposit_params:
         min_deposit:
           - "amount": "10000000"
-            "denom": "alteredCarbon"
+            "denom": "uacarb"
     mint:
       params:
-        mint_denom: "alteredCarbon"
-        inflation_max: "0"
-        inflation_min: "0"
+        mint_denom: "uacarb"
+
+

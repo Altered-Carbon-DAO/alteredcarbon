@@ -3,10 +3,10 @@ package alteredcarbon
 import (
 	"fmt"
 
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
 )
 
 // NewHandler ...

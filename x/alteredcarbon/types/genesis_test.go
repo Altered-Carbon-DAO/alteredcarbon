@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,9 +1,9 @@
 syntax = "proto3";
-package pariah140.alteredcarbon.alteredcarbon;
+package Altered-Carbon-DAO.alteredcarbon.alteredcarbon;
 
 // this line is used by starport scaffolding # proto/tx/import
 
-option go_package = "github.com/pariah140/alteredcarbon/x/alteredcarbon/types";
+option go_package = "github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types";
 
 // Msg defines the Msg service.
 service Msg {

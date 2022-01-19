@@ -3,9 +3,9 @@ package alteredcarbon_test
 import (
 	"testing"
 
-	keepertest "github.com/pariah140/alteredcarbon/testutil/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
+	keepertest "github.com/Altered-Carbon-DAO/alteredcarbon/testutil/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	"github.com/stretchr/testify/require"
 )
 

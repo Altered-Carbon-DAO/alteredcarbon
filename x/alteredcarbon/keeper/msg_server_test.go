@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
+	keepertest "github.com/Altered-Carbon-DAO/alteredcarbon/testutil/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/keeper"
+	"github.com/Altered-Carbon-DAO/alteredcarbon/x/alteredcarbon/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	keepertest "github.com/pariah140/alteredcarbon/testutil/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/keeper"
-	"github.com/pariah140/alteredcarbon/x/alteredcarbon/types"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

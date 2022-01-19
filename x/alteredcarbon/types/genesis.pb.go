@@ -60,7 +60,7 @@ func (m *GenesisState) XXX_DiscardUnknown() {
 var xxx_messageInfo_GenesisState proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "pariah140.alteredcarbon.alteredcarbon.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "Altered-Carbon-DAO.alteredcarbon.alteredcarbon.GenesisState")
 }
 
 func init() { proto.RegisterFile("alteredcarbon/genesis.proto", fileDescriptor_fac10a3cb65e7d9e) }

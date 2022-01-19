@@ -78,7 +78,7 @@ func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "pariah140.alteredcarbon.alteredcarbon.Query",
+	ServiceName: "Altered-Carbon-DAO.alteredcarbon.alteredcarbon.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},
