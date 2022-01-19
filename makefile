@@ -10,7 +10,7 @@ TM_VERSION := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::
 BUILDDIR ?= $(CURDIR)/build
 DOCKER := $(shell which docker)
 POST_ID ?= 1
-STAKE_DENOM ?= ustarx
+STAKE_DENOM ?= uacarb
 
 export GO111MODULE = on
 
@@ -52,12 +52,12 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=alteredcarbon \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbond \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
-		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-		  -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
+# ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=alteredcarbon \
+# 		  -X github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbond \
+# 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+# 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
+# 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
+# 		  -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
 
 ifeq (cleveldb,$(findstring cleveldb,$(GAIA_BUILD_OPTIONS)))
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
@@ -68,7 +68,7 @@ endif
 ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
-BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
+BUILD_FLAGS := -tags "$(build_tags)"
 # check for nostrip option
 ifeq (,$(findstring nostrip,$(GAIA_BUILD_OPTIONS)))
   BUILD_FLAGS += -trimpath
@@ -81,7 +81,7 @@ install: build
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/alteredcarbond
 
 build:
-	go build $(BUILD_FLAGS) -o bin/alteredcarbond ./cmd/alteredcarbond
+	starport chain build -o bin/alteredcarbond ./cmd/alteredcarbond
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
