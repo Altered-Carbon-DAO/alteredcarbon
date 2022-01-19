@@ -1,0 +1,34 @@
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - main: ./cmd/alteredcarbond/
+    id: 'alteredcarbond'
+    binary: alteredcarbond
+    goos:
+      - linux
+    goarch:
+      - amd64
+    flags:
+      - -tags=netgo,faucet
+    ldflags:
+      - -X "github.com/cosmos/cosmos-sdk/version.Name=AlteredCarbon"
+      - -X "github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbon"
+      - -X github.com/cosmos/cosmos-sdk/version.Version={{.Version}}
+      - -X github.com/cosmos/cosmos-sdk/version.Commit={{.Commit}}
+      - -X github.com/cosmos/cosmos-sdk/version.BuildTags=netgo,faucet
+
+release:
+  github:
+    owner: Altered-Carbon-DAO
+    name: alteredcarbon
+  draft: true
+  prerelease: auto
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: '{{ .Tag }}-next'
+changelog:
+  skip: true

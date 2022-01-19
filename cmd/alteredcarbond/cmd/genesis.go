@@ -45,9 +45,8 @@ type SnapshotAccount struct {
 	AtomAddress              string  `json:"atom_address"`
 	OsmoAddress              string  `json:"osmo_address"`
 	RegenAddress             string  `json:"regen_address"`
-	StargazeHubDelegator     bool    `json:"sg_hub_delegator"`
-	StargazeOsmosisDelegator bool    `json:"sg_osmosis_delegator"`
-	StargazeRegenDelegator   bool    `json:"sg_regen_delegator"`
+	AlteredCarbonOsmosisDelegator bool    `json:"sg_osmosis_delegator"`
+	AlteredCarbonRegenDelegator   bool    `json:"sg_regen_delegator"`
 	AtomStaker               bool    `json:"atom_staker"`
 	OsmoStaker               bool    `json:"osmo_staker"`
 	OsmosisLiquidityProvider bool    `json:"osmosis_lp"`
@@ -80,7 +79,7 @@ Examples include:
 	- Setting module initial params
 	- Setting denom metadata
 Example:
-	starsd prepare-genesis mainnet stargaze-1 snapshot.json
+	starsd prepare-genesis mainnet AlteredCarbon-1 snapshot.json
 	- Check input genesis:
 		file is at ~/.starsd/config/genesis.json
 `,

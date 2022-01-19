@@ -3,7 +3,7 @@
 
 ## Get started
 
-Altered Carbon is a [Cosmos](https://cosmos.network) zone (layer 1 proof-of-stake blockchain). It is the base layer node software for the Stargaze NFT Marketplace.
+Altered Carbon is a [Cosmos](https://cosmos.network) zone (layer 1 proof-of-stake blockchain). It is the base layer node software for the Altered Carbon Network.
 ### Install & Run Locally
 
 Requires [Go](https://golang.org/doc/install).
