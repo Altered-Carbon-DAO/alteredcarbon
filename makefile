@@ -52,7 +52,7 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=stargaze \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=alteredcarbon \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbond \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
@@ -95,17 +95,17 @@ lint:
 
 
 build-linux:
-	CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build $(BUILD_FLAGS) -o bin/alteredcarbond github.com/public-awesome/stargaze/cmd/alteredcarbond
+	CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build $(BUILD_FLAGS) -o bin/alteredcarbond github.com/Altered-Carbon-DAO/alteredcarbon/cmd/alteredcarbond
 
 build-docker:
-	docker build -t publicawesome/stargaze:local-dev .
+	docker build -t Altered-Carbon-DAO/alteredcarbon:local-dev .
 
 docker-test: build-linux
 	docker build -f docker/Dockerfile.test -t rocketprotocol/stargaze-relayer-test:latest .
 
 
 test:
-	go test -v -race github.com/public-awesome/stargaze/x/...
+	go test -v -race github.com/Altered-Carbon-DAO/alteredcarbon/x/...
 
 .PHONY: test build-linux docker-test lint build install
 
@@ -117,10 +117,10 @@ proto-gen:
 	go mod tidy
 
 ci-sign: 
-	drone sign public-awesome/stargaze --save
+	drone sign Altered-Carbon-DAO/alteredcarbon --save
 
 .PHONY: build-readiness-checker
 
 build-readiness-checker:
-	CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o bin/readiness-checker github.com/public-awesome/stargaze/testutil/readiness-checker
-	docker build -t publicawesome/stargaze-readiness-checker -f docker/Dockerfile.readiness .
+	CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o bin/readiness-checker github.com/Altered-Carbon-DAO/alteredcarbon/testutil/readiness-checker
+	docker build -t Altered-Carbon-DAO/alteredcarbon-readiness-checker -f docker/Dockerfile.readiness .
