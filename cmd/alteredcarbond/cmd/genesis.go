@@ -69,10 +69,6 @@ type GenesisParams struct {
 	CrisisConstantFee sdk.Coin
 
 	SlashingParams slashingtypes.Params
-
-	// AllocParams alloctypes.Params
-	// ClaimParams claimtypes.Params
-	// MintParams  minttypes.Params
 }
 
 func PrepareGenesisCmd(defaultNodeHome string, mbm module.BasicManager) *cobra.Command {
@@ -178,17 +174,6 @@ func PrepareGenesis(
 	}
 	appState[ibctransfertypes.ModuleName] = ibcGenStateBz
 
-	// // mint module genesis
-	// mintGenState := minttypes.DefaultGenesisState()
-	// mintGenState.Params = genesisParams.MintParams
-
-	// mintGenStateBz, err := cdc.MarshalJSON(mintGenState)
-	// if err != nil {
-	// 	return nil, nil, fmt.Errorf("failed to marshal mint genesis state: %w", err)
-	// }
-	// appState[minttypes.ModuleName] = mintGenStateBz
-
-	// staking module genesis
 	stakingGenState := stakingtypes.GetGenesisStateFromAppState(cdc, appState)
 	stakingGenState.Params = genesisParams.StakingParams
 	stakingGenStateBz, err := cdc.MarshalJSON(stakingGenState)
@@ -249,56 +234,6 @@ func PrepareGenesis(
 	bankGenState.DenomMetadata = genesisParams.NativeCoinMetadatas
 	balances := bankGenState.Balances
 
-	// // claim module genesis
-	// claimGenState := claimtypes.GetGenesisStateFromAppState(cdc, appState)
-	// claimGenState.Params = genesisParams.ClaimParams
-	// claimRecords := make([]claimtypes.ClaimRecord, 0, len(snapshot.Accounts))
-	// claimsTotal := sdk.ZeroInt()
-	// // check from preexisint accounts in genesis
-	// preExistingAccounts := make(map[string]bool)
-	// for _, b := range balances {
-	// 	preExistingAccounts[b.Address] = true
-	// }
-	// for addr, acc := range snapshot.Accounts {
-	// 	claimRecord := claimtypes.ClaimRecord{
-	// 		Address:                addr,
-	// 		InitialClaimableAmount: sdk.NewCoins(sdk.NewCoin(BaseCoinUnit, acc.AirdropAmount)),
-	// 		ActionCompleted:        []bool{false, false, false, false, false},
-	// 	}
-	// 	claimsTotal = claimsTotal.Add(acc.AirdropAmount)
-	// 	claimRecords = append(claimRecords, claimRecord)
-	// 	// skip account addition if existent
-	// 	exists := preExistingAccounts[addr]
-	// 	if exists {
-	// 		continue
-	// 	}
-	// 	balances = append(balances, banktypes.Balance{
-	// 		Address: addr,
-	// 		Coins:   sdk.NewCoins(sdk.NewInt64Coin(BaseCoinUnit, 1)),
-	// 	})
-
-	// 	address, err := sdk.AccAddressFromBech32(addr)
-	// 	if err != nil {
-	// 		return nil, nil, err
-	// 	}
-	// 	// add base account
-	// 	// Add the new account to the set of genesis accounts
-	// 	baseAccount := authtypes.NewBaseAccount(address, nil, 0, 0)
-	// 	if err := baseAccount.Validate(); err != nil {
-	// 		return nil, nil, fmt.Errorf("failed to validate new genesis account: %w", err)
-	// 	}
-	// 	accs = append(accs, baseAccount)
-	// }
-	// claimGenState.ClaimRecords = claimRecords
-	// claimGenState.ModuleAccountBalance = sdk.NewCoin(BaseCoinUnit, claimsTotal)
-	// claimGenStateBz, err := cdc.MarshalJSON(claimGenState)
-	// if err != nil {
-	// 	return nil, nil, fmt.Errorf("failed to marshal claim genesis state: %w", err)
-	// }
-	// appState[claimtypes.ModuleName] = claimGenStateBz
-
-	// save accounts
-
 	// auth module genesis
 	accs = authtypes.SanitizeGenesisAccounts(accs)
 	genAccs, err := authtypes.PackAccounts(accs)
@@ -319,15 +254,6 @@ func PrepareGenesis(
 		return nil, nil, fmt.Errorf("failed to marshal bank genesis state: %w", err)
 	}
 	appState[banktypes.ModuleName] = bankGenStateBz
-
-	// // alloc module genesis
-	// allocGenState := alloctypes.GetGenesisStateFromAppState(cdc, appState)
-	// allocGenState.Params = genesisParams.AllocParams
-	// allocGenStateBz, err := cdc.MarshalJSON(allocGenState)
-	// if err != nil {
-	// 	return nil, nil, fmt.Errorf("failed to marshal alloc genesis state: %w", err)
-	// }
-	// appState[alloctypes.ModuleName] = allocGenStateBz
 
 	return appState, genDoc, nil
 }
@@ -358,39 +284,6 @@ func MainnetGenesisParams() GenesisParams {
 			Display: HumanCoinUnit,
 		},
 	}
-
-	// // alloc
-	// genParams.AllocParams = alloctypes.DefaultParams()
-	// genParams.AllocParams.DistributionProportions = alloctypes.DistributionProportions{
-	// 	NftIncentives:    sdk.NewDecWithPrec(45, 2), // 45%
-	// 	DeveloperRewards: sdk.NewDecWithPrec(15, 2), // 15%
-	// }
-	// genParams.AllocParams.WeightedDeveloperRewardsReceivers = []alloctypes.WeightedAddress{
-	// 	{
-	// 		Address: "stars1xqz6xujjyz0r9uzn7srasle5uynmpa0zkjr5l8",
-	// 		Weight:  sdk.NewDecWithPrec(33, 2),
-	// 	},
-	// 	{
-	// 		Address: "stars15gp36gk6jvfupy8rc4segppa38lhm3helm5f8k",
-	// 		Weight:  sdk.NewDecWithPrec(67, 2).Mul(sdk.NewDecWithPrec(40, 2)),
-	// 	},
-	// 	{
-	// 		Address: "stars168efxgnh55vcgx83x90pw2fves9anw8kmnlsf5",
-	// 		Weight:  sdk.NewDecWithPrec(67, 2).Mul(sdk.NewDecWithPrec(30, 2)),
-	// 	},
-	// 	{
-	// 		Address: "stars139a4n6w6dhwv60dj2clgwm6r0q84gju28z9at0",
-	// 		Weight:  sdk.NewDecWithPrec(67, 2).Mul(sdk.NewDecWithPrec(30, 2)),
-	// 	},
-	// }
-
-	// mint
-	// genParams.MintParams = minttypes.DefaultParams()
-	// genParams.MintParams.MintDenom = BaseCoinUnit
-	// genParams.MintParams.StartTime = genParams.GenesisTime.AddDate(1, 0, 0)
-	// genParams.MintParams.InitialAnnualProvisions = sdk.NewDec(1_000_000_000_000_000)
-	// genParams.MintParams.ReductionFactor = sdk.NewDec(2).QuoInt64(3)
-	// genParams.MintParams.BlocksPerYear = uint64(5737588)
 
 	genParams.StakingParams = stakingtypes.DefaultParams()
 	genParams.StakingParams.UnbondingTime = time.Hour * 24 * 7 * 2 // 2 weeks
@@ -425,14 +318,6 @@ func MainnetGenesisParams() GenesisParams {
 	genParams.SlashingParams.SlashFractionDoubleSign = sdk.MustNewDecFromStr("0.05") // 5% double sign slashing
 	genParams.SlashingParams.SlashFractionDowntime = sdk.MustNewDecFromStr("0.0001") // 0.01% liveness slashing
 
-	// genParams.ClaimParams = claimtypes.Params{
-	// 	AirdropEnabled:     false,
-	// 	AirdropStartTime:   genParams.GenesisTime.Add(time.Hour * 24 * 365), // 1 year (will be changed by gov)
-	// 	DurationUntilDecay: time.Hour * 24 * 120,                            // 120 days = ~4 months
-	// 	DurationOfDecay:    time.Hour * 24 * 120,                            // 120 days = ~4 months
-	// 	ClaimDenom:         genParams.NativeCoinMetadatas[0].Base,
-	// }
-
 	genParams.ConsensusParams = tmtypes.DefaultConsensusParams()
 	genParams.ConsensusParams.Block.MaxBytes = 25 * 1024 * 1024 // 26,214,400 for cosmwasm
 	genParams.ConsensusParams.Block.MaxGas = 10_000_000
@@ -450,9 +335,6 @@ func TestnetGenesisParams() GenesisParams {
 	genParams.AirdropSupply = sdk.NewInt(500_000_000_000_000) // 500M ACARB
 	genParams.GenesisTime = time.Now()
 
-	// mint
-	// genParams.MintParams.StartTime = genParams.GenesisTime.Add(time.Minute * 5)
-
 	genParams.GovParams.DepositParams.MaxDepositPeriod = time.Hour * 24 * 14 // 2 weeks
 	genParams.GovParams.DepositParams.MinDeposit = sdk.NewCoins(sdk.NewCoin(
 		genParams.NativeCoinMetadatas[0].Base,
@@ -469,9 +351,6 @@ func DevnetGenesisParams() GenesisParams {
 
 	genParams.AirdropSupply = sdk.NewInt(500_000_000_000_000) // 500M ACARB
 	genParams.GenesisTime = time.Now()
-
-	// // mint
-	// genParams.MintParams.StartTime = genParams.GenesisTime.Add(time.Hour * 10)
 
 	genParams.GovParams.DepositParams.MaxDepositPeriod = time.Hour * 1 // 1 hour
 	genParams.GovParams.DepositParams.MinDeposit = sdk.NewCoins(sdk.NewCoin(
