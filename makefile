@@ -68,7 +68,7 @@ endif
 ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
-BUILD_FLAGS := -tags "$(build_tags)"
+BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
 # check for nostrip option
 ifeq (,$(findstring nostrip,$(GAIA_BUILD_OPTIONS)))
   BUILD_FLAGS += -trimpath
@@ -81,7 +81,7 @@ install: build
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/alteredcarbond
 
 build:
-	starport chain build -o bin/alteredcarbond ./cmd/alteredcarbond
+	go build -o bin/alteredcarbond ./cmd/alteredcarbond
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"

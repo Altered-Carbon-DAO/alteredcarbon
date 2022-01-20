@@ -1,5 +1,5 @@
 syntax = "proto3";
-package Altered-Carbon-DAO.alteredcarbon.alteredcarbon;
+package AlteredCarbonDAO.alteredcarbon.alteredcarbon;
 
 // this line is used by starport scaffolding # genesis/proto/import
 

@@ -32,7 +32,7 @@ import (
 const (
 	HumanCoinUnit       = "acarb"
 	BaseCoinUnit        = "uacarb"
-	StarsExponent       = 6
+	ACARBExponent       = 6
 	Bech32PrefixAccAddr = "acarb"
 )
 
@@ -79,9 +79,9 @@ Examples include:
 	- Setting module initial params
 	- Setting denom metadata
 Example:
-	starsd prepare-genesis mainnet AlteredCarbon-1 snapshot.json
+	alteredcarbond prepare-genesis mainnet AlteredCarbon-1 snapshot.json
 	- Check input genesis:
-		file is at ~/.starsd/config/genesis.json
+		file is at ~/.alteredcarbon/config/genesis.json
 `,
 		Args: cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -275,7 +275,7 @@ func MainnetGenesisParams() GenesisParams {
 				},
 				{
 					Denom:    HumanCoinUnit,
-					Exponent: StarsExponent,
+					Exponent: ACARBExponent,
 					Aliases:  nil,
 				},
 			},
