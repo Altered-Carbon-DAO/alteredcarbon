@@ -37,7 +37,6 @@ const (
 )
 
 type Snapshot struct {
-	TotalAcarbAirdropAmount sdk.Int                    `json:"total_acarb_amount"`
 	Accounts                map[string]SnapshotAccount `json:"accounts"`
 }
 
@@ -50,11 +49,9 @@ type SnapshotAccount struct {
 	AtomStaker               bool    `json:"atom_staker"`
 	OsmoStaker               bool    `json:"osmo_staker"`
 	OsmosisLiquidityProvider bool    `json:"osmosis_lp"`
-	AirdropAmount            sdk.Int `json:"airdrop_amount"`
 }
 
 type GenesisParams struct {
-	AirdropSupply sdk.Int
 
 	ConsensusParams *tmproto.ConsensusParams
 
@@ -260,8 +257,7 @@ func PrepareGenesis(
 // params only
 func MainnetGenesisParams() GenesisParams {
 	genParams := GenesisParams{}
-
-	genParams.AirdropSupply = sdk.NewInt(500_000_000_000_000)              // 500M ACARB
+             // 500M ACARB
 	genParams.GenesisTime = time.Date(2022, 01, 19, 17, 0, 0, 0, time.UTC) // Jan 19, 2022 - 17:00 UTC
 
 	genParams.NativeCoinMetadatas = []banktypes.Metadata{
@@ -331,7 +327,6 @@ func MainnetGenesisParams() GenesisParams {
 func TestnetGenesisParams() GenesisParams {
 	genParams := MainnetGenesisParams()
 
-	genParams.AirdropSupply = sdk.NewInt(500_000_000_000_000) // 500M ACARB
 	genParams.GenesisTime = time.Now()
 
 	genParams.GovParams.DepositParams.MaxDepositPeriod = time.Hour * 24 * 14 // 2 weeks
@@ -348,7 +343,6 @@ func TestnetGenesisParams() GenesisParams {
 func DevnetGenesisParams() GenesisParams {
 	genParams := MainnetGenesisParams()
 
-	genParams.AirdropSupply = sdk.NewInt(500_000_000_000_000) // 500M ACARB
 	genParams.GenesisTime = time.Now()
 
 	genParams.GovParams.DepositParams.MaxDepositPeriod = time.Hour * 1 // 1 hour

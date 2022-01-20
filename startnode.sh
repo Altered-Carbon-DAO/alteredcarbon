@@ -21,9 +21,9 @@ alteredcarbond init alteredcarbon --chain-id mainnet-1
 #   sed -i '' "s/cors_allowed_origins = \[\]/cors_allowed_origins = [\"*\"]/g" $config
 # fi
 
-alteredcarbond add-genesis-account $VALIDATOR 10000000000000000stake
-alteredcarbond add-genesis-account $TREASURY 10000000000000000ustarx
-alteredcarbond gentx validator 10000000000stake --chain-id localnet-1 --keyring-backend
+alteredcarbond add-genesis-account $VALIDATOR 1000000000000uacarb
+alteredcarbond add-genesis-account $TREASURY 2500000000000000uacarb
+alteredcarbond gentx validator 10000000000uacarb --chain-id localnet-1 --keyring-backend
 alteredcarbond collect-gentxs
 alteredcarbond validate-genesis
 alteredcarbond start

@@ -52,12 +52,12 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
 
-# ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=alteredcarbon \
-# 		  -X github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbond \
-# 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
-# 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-# 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-# 		  -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=alteredcarbon \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=alteredcarbond \
+		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
+		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
+		  -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
 
 ifeq (cleveldb,$(findstring cleveldb,$(GAIA_BUILD_OPTIONS)))
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
@@ -81,7 +81,7 @@ install: build
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/alteredcarbond
 
 build:
-	go build -o bin/alteredcarbond ./cmd/alteredcarbond
+	go build $(BUILD_FLAGS) -o bin/alteredcarbond ./cmd/alteredcarbond
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
