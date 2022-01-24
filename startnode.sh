@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # create users
-rm -rf $HOME/.alteredcarbond
+rm -rf $HOME/.alteredcarbon
 alteredcarbond config chain-id localnet-1
 
 KEYS=$(alteredcarbond keys list )
