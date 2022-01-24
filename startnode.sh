@@ -2,23 +2,17 @@
 
 # create users
 rm -rf $HOME/.alteredcarbon
-alteredcarbond config chain-id localnet-1
+CHAINID=alteredcarbon
+DENOM=uacarb
+alteredcarbond config chain-id $CHAINID
 
-KEYS=$(alteredcarbond keys list )
-if [[ -n $KEYS  ]]
-then
-    echo "Existing key config found."
-else
-    echo "Setting up keyring-backend..."
-    alteredcarbond config keyring-backend
-    alteredcarbond config output json
-    echo "Adding up validator..."
-    yes | alteredcarbond keys add validator
-    echo "Adding up treasury..."
-    yes | alteredcarbond keys add treasury
-fi
-
-
+echo "Setting up keyring-backend..."
+alteredcarbond config keyring-backend test
+alteredcarbond config output json
+echo "Adding up validator..."
+yes | alteredcarbond keys add validator
+echo "Adding up treasury..."
+yes | alteredcarbond keys add treasury
 
 VALIDATOR=$(alteredcarbond keys show validator -a)
 TREASURY=$(alteredcarbond keys show treasury -a)
@@ -27,15 +21,7 @@ echo "Got TREASURY $TREASURY"
 
 
 # setup chain
-
-gen=$($HOME/.alteredcarbon/config/genesis.json)
-if [[ -n gen ]]
-then
-    echo "Genesis file exists on your filesystem. Not re-initalising chain."
-else
-    echo "Setting up mainnet..."
-    alteredcarbond init alteredcarbon --chain-id mainnet-1
-fi
+alteredcarbond init $CHAINID --chain-id $CHAINID
 # modify config for development
 # config="$HOME/.alteredcarbond/config/config.toml"
 # if [ "$(uname)" = "Linux" ]; then
@@ -44,17 +30,11 @@ fi
 #   sed -i '' "s/cors_allowed_origins = \[\]/cors_allowed_origins = [\"*\"]/g" $config
 # fi
 
-tx=$($HOME/.alteredcarbon/config/gentx/gentx-*.json)
-if [[ -n tx  ]]
-then
-    echo "Genesis transaction on your filesystem. Not creating genesis transaction."
-else
-    echo "Creating genesis transaction...."
-    alteredcarbond gentx validator 10000000000uacarb --chain-id localnet-1 
-    alteredcarbond add-genesis-account $VALIDATOR 1000000000000uacarb
-    alteredcarbond add-genesis-account $TREASURY 2500000000000000uacarb
-fi
-
+sed -e "s/\"stake\"/\"$DENOM\"/g" /Users/richurley/.alteredcarbon/config/genesis.json
+alteredcarbond add-genesis-account $VALIDATOR 1000000000000uacarb
+alteredcarbond add-genesis-account $TREASURY 2500000000000000uacarb
+alteredcarbond prepare-genesis mainnet $CHAINID
+alteredcarbond gentx validator 10000000000uacarb --chain-id $CHAINID --keyring-backend test
 alteredcarbond collect-gentxs
 alteredcarbond validate-genesis
 alteredcarbond start

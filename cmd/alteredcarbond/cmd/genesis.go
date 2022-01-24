@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -36,23 +35,7 @@ const (
 	Bech32PrefixAccAddr = "acarb"
 )
 
-type Snapshot struct {
-	Accounts                map[string]SnapshotAccount `json:"accounts"`
-}
-
-type SnapshotAccount struct {
-	AtomAddress              string  `json:"atom_address"`
-	OsmoAddress              string  `json:"osmo_address"`
-	RegenAddress             string  `json:"regen_address"`
-	AlteredCarbonOsmosisDelegator bool    `json:"sg_osmosis_delegator"`
-	AlteredCarbonRegenDelegator   bool    `json:"sg_regen_delegator"`
-	AtomStaker               bool    `json:"atom_staker"`
-	OsmoStaker               bool    `json:"osmo_staker"`
-	OsmosisLiquidityProvider bool    `json:"osmosis_lp"`
-}
-
 type GenesisParams struct {
-
 	ConsensusParams *tmproto.ConsensusParams
 
 	GenesisTime         time.Time
@@ -69,18 +52,18 @@ type GenesisParams struct {
 
 func PrepareGenesisCmd(defaultNodeHome string, mbm module.BasicManager) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "prepare-genesis [network] [chainID] [file]",
+		Use:   "prepare-genesis [network] [chainID]",
 		Short: "Prepare a genesis file with initial setup",
 		Long: `Prepare a genesis file with initial setup.
 Examples include:
 	- Setting module initial params
 	- Setting denom metadata
 Example:
-	alteredcarbond prepare-genesis mainnet AlteredCarbon-1 snapshot.json
+	alteredcarbond prepare-genesis mainnet AlteredCarbon-1
 	- Check input genesis:
 		file is at ~/.alteredcarbon/config/genesis.json
 `,
-		Args: cobra.ExactArgs(3),
+		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 			cdc := clientCtx.Codec
@@ -107,16 +90,8 @@ Example:
 			// get genesis params
 			chainID := args[1]
 
-			// read snapshot.json and parse into struct
-			snapshotFile, _ := ioutil.ReadFile(args[2])
-			snapshot := Snapshot{}
-			err = json.Unmarshal(snapshotFile, &snapshot)
-			if err != nil {
-				panic(err)
-			}
-
 			// run Prepare Genesis
-			appState, genDoc, err = PrepareGenesis(clientCtx, appState, genDoc, genesisParams, chainID, snapshot)
+			appState, genDoc, err = PrepareGenesis(clientCtx, appState, genDoc, genesisParams, chainID)
 			if err != nil {
 				return fmt.Errorf("failed to prepare genesis: %w", err)
 			}
@@ -151,7 +126,6 @@ func PrepareGenesis(
 	genDoc *tmtypes.GenesisDoc,
 	genesisParams GenesisParams,
 	chainID string,
-	snapshot Snapshot,
 ) (map[string]json.RawMessage, *tmtypes.GenesisDoc, error) {
 	cdc := clientCtx.Codec
 
@@ -257,8 +231,8 @@ func PrepareGenesis(
 // params only
 func MainnetGenesisParams() GenesisParams {
 	genParams := GenesisParams{}
-             // 500M ACARB
-	genParams.GenesisTime = time.Date(2022, 01, 19, 17, 0, 0, 0, time.UTC) // Jan 19, 2022 - 17:00 UTC
+	// 500M ACARB
+	genParams.GenesisTime = time.Now()
 
 	genParams.NativeCoinMetadatas = []banktypes.Metadata{
 		{
@@ -277,6 +251,8 @@ func MainnetGenesisParams() GenesisParams {
 			},
 			Base:    BaseCoinUnit,
 			Display: HumanCoinUnit,
+			Name:    "ACARB",
+			Symbol:  "ACARB",
 		},
 	}
 
